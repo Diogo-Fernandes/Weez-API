@@ -54,6 +54,14 @@ app.use("/profile", profile);
 app.use("/ranking", ranking);
 
 
+
+// Handle production build
+if(process.env.NODE_ENV === "production"){
+    app.use(express.static(__dirname + "/public/"));
+    app.get(/.*/, (req, res) => res.sendFile(__dirname + '/public/index.html'));
+}
+
+
 // PORT
 const port = process.env.PORT;
 app.listen(port, () => {
